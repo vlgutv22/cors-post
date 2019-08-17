@@ -7,8 +7,6 @@ app.use(cors());
 app.options('*', cors());
 
 app.get('/', function(req, res) {
-  console.log(req.query);
-
   if (req.query.url && req.query.body) {
     const url = req.query.url;
     const body = JSON.parse(req.query.body);
