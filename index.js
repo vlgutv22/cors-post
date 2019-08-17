@@ -16,7 +16,7 @@ app.get('/', function(req, res) {
       .setBody(body)
       .post(url)
       .then(({ statusCode, body, headers }) => {
-        res.send({ statusCode, body, headers });
+        res.send(body);
       })
       .catch(e => {
         res.status(400);
