@@ -4,6 +4,7 @@ const app = express();
 const cors = require('cors');
 
 app.use(cors());
+app.options('*', cors());
 
 app.get('/', function(req, res) {
   if (req.query.url && req.query.body) {
