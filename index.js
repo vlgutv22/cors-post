@@ -2,6 +2,7 @@ const curl = new (require('curl-request'))();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const port = process.env.PORT || 8080;
 
 app.use(cors());
 app.options('*', cors());
@@ -27,6 +28,6 @@ app.get('/', function(req, res) {
   }
 });
 
-app.listen(3000, function() {
-  console.log('Example app listening on port 3000!');
+app.listen(port, function() {
+  console.log('Example app listening on port: ' + port);
 });
