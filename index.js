@@ -13,19 +13,16 @@ app.get('/', function (req, res) {
     const options = {
       method: 'POST',
       url: url,
-      body: body,
-      json: true, // JSON stringifies the body automatically
+      body: JSON.stringify(body),
+      headers: {
+        'Content-Type': 'application/json',
+      },
     };
 
-    request(options)
-      .then(function (response) {
-        console.log(response);
-        // Handle success response data
-      })
-      .catch(function (err) {
-        console.log(response);
-        // Handle err response
-      });
+    request(options, function (error, response) {
+      console.log(error, response.body);
+      return;
+    });
   } else {
     res.status(400);
     res.send('Invalid request');
