@@ -21,5 +21,8 @@
     "cors": "^2.8.5",
     "curl-request": "^1.1.1",
     "express": "^4.17.1"
+  },
+  "engines": {
+    "node": "12.x"
   }
 }
