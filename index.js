@@ -1,7 +1,7 @@
-const curl = new (require('./curl-request'))();
 const express = require('express');
 const app = express();
 const cors = require('cors');
+var curl = require('curlrequest');
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -10,18 +10,11 @@ app.get('/', function (req, res) {
   if (req.query.url && req.query.body) {
     const url = req.query.url;
     const body = JSON.parse(req.query.body);
+    const options = { method: 'POST', url, data: req.query.body };
 
-    curl
-      .setBody(body)
-      .post(url)
-      .then(({ statusCode, body, headers }) => {
-        console.log(res);
-        res.send(body);
-      })
-      .catch((e) => {
-        res.status(400);
-        res.send(e);
-      });
+    curl.request(options, function (err, data) {
+      console.log(err, data);
+    });
   } else {
     res.status(400);
     res.send('Invalid request');
