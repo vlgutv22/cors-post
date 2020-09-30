@@ -1,4 +1,4 @@
-const curl = new (require('curl-request'))();
+const curl = new (require('./curl-request'))();
 const express = require('express');
 const app = express();
 const cors = require('cors');
@@ -7,7 +7,7 @@ const port = process.env.PORT || 8080;
 app.use(cors());
 app.options('*', cors());
 
-app.get('/', function(req, res) {
+app.get('/', function (req, res) {
   if (req.query.url && req.query.body) {
     const url = req.query.url;
     const body = JSON.parse(req.query.body);
@@ -18,7 +18,7 @@ app.get('/', function(req, res) {
       .then(({ statusCode, body, headers }) => {
         res.send(body);
       })
-      .catch(e => {
+      .catch((e) => {
         res.status(400);
         res.send(e);
       });
@@ -28,6 +28,6 @@ app.get('/', function(req, res) {
   }
 });
 
-app.listen(port, function() {
+app.listen(port, function () {
   console.log('Example app listening on port: ' + port);
 });
