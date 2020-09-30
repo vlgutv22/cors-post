@@ -1,7 +1,7 @@
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const request = require('request');
+var curl = require('curlrequest');
 const port = process.env.PORT || 8080;
 
 app.use(cors());
@@ -10,18 +10,9 @@ app.get('/', function (req, res) {
   if (req.query.url && req.query.body) {
     const url = req.query.url;
     const body = JSON.parse(req.query.body);
-    const options = {
-      method: 'POST',
-      url: url,
-      body: JSON.stringify(body),
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    };
 
-    request(options, function (error, response) {
-      console.log(error, response.body);
-      return;
+    curl.request({ url, data: body }, function (err, data) {
+      console.log(err, data);
     });
   } else {
     res.status(400);
@@ -32,3 +23,7 @@ app.get('/', function (req, res) {
 app.listen(port, function () {
   console.log('Example app listening on port: ' + port);
 });
+
+// curl 'https://webflow.com/api/v1/form/5f3ce7d38b0a42cbcba07bf6' \
+//   --data-raw 'name=Email+Form&source=https%3A%2F%2Fforager.ai%2F&test=false&fields%5BName+2%5D=Gutorov+Vladimir&fields%5BEmail+2%5D=vlgutv%40gmail.com&fields%5BField+3%5D=test&fields%5BField+4%5D=test.com&dolphin=false' \
+//   --compressed
